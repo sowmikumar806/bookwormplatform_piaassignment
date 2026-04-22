@@ -25,8 +25,8 @@ import boto3
 
 # COMMAND ----------
 
-AWS_ACCESS_KEY = "AKIAXCB7QKFFGNOP2BGI"
-AWS_SECRET_KEY = "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"
+AWS_ACCESS_KEY = "XXXXXX"
+AWS_SECRET_KEY = "XXXXXX"
 AWS_REGION     = "eu-north-1"
 S3_BUCKET      = "bookworm-datalake"
 
