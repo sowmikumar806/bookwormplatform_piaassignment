@@ -83,7 +83,7 @@ print(f"Catalogue loaded from goodreads GitHub")
 print(f"   Total datasets : {catalogue.count()}")
 print(f"   Complete       : {catalogue.filter(F.col('type') == 'complete').count()}")
 print(f"   By Genre       : {catalogue.filter(F.col('type') == 'byGenre').count()}")
-print(f"\n📋 Full catalogue:")
+print(f"\n Full catalogue:")
 display(catalogue)
 
 # COMMAND ----------
@@ -160,7 +160,7 @@ assert manifest.filter(col("url").isNull()).count()     == 0, "Null URLs found"
 assert manifest.filter(col("s3_path").isNull()).count() == 0, "Null S3 paths found"
 
 print(f"Manifest built — {manifest.count()} files")
-print(f"\n📋 Full manifest:")
+print(f"\n Full manifest:")
 display(manifest.select("name", "type", "url", "s3_path"))
 
 # COMMAND ----------
@@ -203,14 +203,14 @@ def stream_to_s3(url, s3_path):
     # Skip if already exists
     try:
         size = s3.head_object(Bucket=bucket, Key=key)["ContentLength"] / (1024*1024)
-        print(f"⏭️  {fname} ({size:.1f} MB) — skipping")
+        print(f"  {fname} ({size:.1f} MB) — skipping")
         return {"name": fname, "status": "skipped", "size_mb": size}
     except:
         pass
 
     # Stream URL → S3
     try:
-        print(f"⬇️  {fname}")
+        print(f"  {fname}")
         response = requests.get(url, stream=True, timeout=300)
         response.raise_for_status()
         s3.upload_fileobj(response.raw, bucket, key)
@@ -223,7 +223,7 @@ def stream_to_s3(url, s3_path):
 
 # Download all files from manifest
 print("=" * 60)
-print("🚀 Starting download of all files")
+print(" Starting download of all files")
 print("=" * 60)
 
 results = []
@@ -233,7 +233,7 @@ for row in manifest.collect():
 
 # Summary
 results_df = spark.createDataFrame(results)
-print("\n📊 Download Summary:")
+print("\n Download Summary:")
 display(
     results_df.groupBy("status")
     .agg(
