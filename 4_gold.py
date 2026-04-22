@@ -267,7 +267,7 @@ df_gold_ml.write \
 
 current = spark.read.format("delta").load(GOLD_ML_FEATURES) \
               .filter(F.col("is_current") == True).count()
-print(f"✅ gold_book_features: {current:,} current rows")
+print(f" gold_book_features: {current:,} current rows")
 display(
     spark.read.format("delta").load(GOLD_ML_FEATURES)
     .filter(F.col("is_current") == True)
